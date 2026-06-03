@@ -74,6 +74,9 @@ body{
 
 #weather{ z-index:2; }
 #ambient{ z-index:3; background:var(--ambient); transition:background .6s linear; }
+#daylight{ position:fixed; inset:0; pointer-events:none; z-index:3; mix-blend-mode:screen;
+  background:radial-gradient(120% 90% at 72% 16%, rgba(255,240,200,.5), rgba(255,240,200,0) 60%);
+  opacity:var(--daylight); transition:opacity .6s linear; }
 #lightning{ z-index:4; opacity:0; background:linear-gradient(180deg, rgba(210,230,255,.9), rgba(150,180,220,.2)); }
 #lightning.flash{ animation:flash .7s ease-out; }
 @keyframes flash{ 0%{opacity:0;} 5%{opacity:.8;} 12%{opacity:.12;} 20%{opacity:.65;} 100%{opacity:0;} }
@@ -139,30 +142,30 @@ body:not(.aboard) #brand, body:not(.aboard) #sound-toggle{ display:none; }
 .loc-kicker{ font-family:var(--display); letter-spacing:.34em; text-transform:uppercase; color:var(--gold-bright); font-size:13px; text-shadow:0 2px 6px #000; }
 .loc-title{ font-family:var(--pirate); font-size:clamp(36px,7vw,82px); color:var(--bone); letter-spacing:.05em; text-shadow:0 3px 0 #000, 0 0 40px rgba(0,0,0,.8); }
 
-/* exit markers positioned over scene */
+/* exit markers: an illustrated door/ladder/hatch that sits on the spot */
 .exits{ position:absolute; inset:0; }
-.exit{
+.exit, .feature{
   position:absolute; transform:translate(-50%,-50%); cursor:pointer;
-  display:flex; flex-direction:column; align-items:center; gap:6px;
+  display:flex; flex-direction:column; align-items:center; gap:7px;
   background:none; border:none; color:var(--bone); font-family:var(--serif);
-  animation:bob 4s ease-in-out infinite;
+  animation:bob 5s ease-in-out infinite; padding:0;
 }
-.exit-glyph{
-  width:54px; height:54px; border-radius:50%; display:flex; align-items:center; justify-content:center;
-  font-size:22px; color:var(--gold-bright);
-  background:radial-gradient(circle at 40% 35%, rgba(40,30,14,.85), rgba(10,8,5,.85));
-  border:2px solid rgba(230,196,104,.7); box-shadow:0 0 0 0 rgba(230,196,104,.5), 0 8px 20px rgba(0,0,0,.6);
-  transition:transform .15s ease, box-shadow .25s ease; animation:pulse 2.6s ease-out infinite;
+.exit-icon, .feature-icon{
+  width:76px; height:76px; filter:drop-shadow(0 6px 14px rgba(0,0,0,.7));
+  transition:transform .16s ease, filter .25s ease;
 }
-.exit-label{
-  font-family:var(--display); font-size:12.5px; letter-spacing:.04em; max-width:170px; text-align:center;
-  background:rgba(7,10,14,.62); padding:4px 10px; border-radius:14px; border:1px solid rgba(201,162,74,.25);
-  text-shadow:0 1px 3px #000; opacity:0; transform:translateY(4px); transition:all .2s ease;
+.exit-icon svg, .feature-icon svg{ width:100%; height:100%; display:block; overflow:visible; }
+.exit-icon .glow, .feature-icon .glow{ animation:iconpulse 2.8s ease-in-out infinite; }
+.exit-label, .feature-label{
+  font-family:var(--display); font-size:12px; letter-spacing:.04em; max-width:160px; text-align:center;
+  color:var(--bone); background:rgba(7,10,14,.62); padding:4px 11px; border-radius:14px;
+  border:1px solid rgba(201,162,74,.3); text-shadow:0 1px 3px #000;
+  transition:all .18s ease;
 }
-.exit:hover .exit-glyph{ transform:scale(1.15); box-shadow:0 0 18px 4px rgba(230,196,104,.55), 0 8px 20px rgba(0,0,0,.6); color:#fff; }
-.exit:hover .exit-label{ opacity:1; transform:none; }
-@keyframes pulse{ 0%{ box-shadow:0 0 0 0 rgba(230,196,104,.5),0 8px 20px rgba(0,0,0,.6);} 70%{ box-shadow:0 0 0 16px rgba(230,196,104,0),0 8px 20px rgba(0,0,0,.6);} 100%{ box-shadow:0 0 0 0 rgba(230,196,104,0),0 8px 20px rgba(0,0,0,.6);} }
-@keyframes bob{ 0%,100%{ margin-top:0;} 50%{ margin-top:-8px;} }
+.exit:hover .exit-icon, .feature:hover .feature-icon{ transform:scale(1.12); filter:drop-shadow(0 0 16px rgba(230,196,104,.7)) drop-shadow(0 6px 14px rgba(0,0,0,.7)); }
+.exit:hover .exit-label, .feature:hover .feature-label{ color:#fff; border-color:var(--gold); background:rgba(20,28,20,.8); }
+@keyframes iconpulse{ 0%,100%{ opacity:.35; } 50%{ opacity:.9; } }
+@keyframes bob{ 0%,100%{ margin-top:0;} 50%{ margin-top:-7px;} }
 
 /* bottom: turn-around, flavor, passages, read hint */
 .loc-foot{ position:absolute; left:0; right:0; bottom:26px; text-align:center; padding:0 18px; }
@@ -257,6 +260,16 @@ h3{ font-family:var(--display); color:var(--bone); }
 .btn-ghost:hover{ background:var(--gold); color:#12100a; }
 .soon{ opacity:.6; font-style:italic; color:var(--parch-dim); }
 #cannon-game{ width:100%; background:#0a141c; border:1px solid rgba(201,162,74,.3); border-radius:6px; display:block; }
+
+/* flip-through book (Barnacles centerpiece) */
+.booktabs{ display:flex; flex-wrap:wrap; gap:6px; margin:14px 0 18px; }
+.booktab{ font-family:var(--display); font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--parch-dim); background:rgba(7,10,14,.5); border:1px solid rgba(201,162,74,.3); border-radius:4px; padding:7px 13px; cursor:pointer; transition:all .15s ease; }
+.booktab:hover{ color:var(--bone); border-color:var(--gold); }
+.booktab.active{ color:#12100a; background:linear-gradient(180deg,var(--gold-bright),var(--gold)); border-color:var(--gold); }
+.booksection{ animation:roomIn .4s ease both; }
+.book-back{ display:inline-block; margin-bottom:10px; font-family:var(--display); font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--gold-bright); cursor:pointer; }
+.book-back:hover{ color:#fff; }
+.info-card{ margin-top:8px; }
 
 /* ============================================================
    MOVEMENT TRANSITIONS

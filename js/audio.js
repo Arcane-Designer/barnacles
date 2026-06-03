@@ -28,8 +28,8 @@
     below:  { waves:.22, surf:.05, wind:.08, rumble:.22, creak:.7,  gulls:0,   fire:0,   bubbles:0, cutoff:1200,  thunder:false },
     // the forge: fire and iron
     forge:  { waves:.16, surf:.04, wind:.06, rumble:.14, creak:.3,  gulls:0,   fire:.85, bubbles:0, cutoff:5200,  thunder:false },
-    // overboard
-    water:  { waves:.5,  surf:.1,  wind:.05, rumble:.18, creak:.1,  gulls:0,   fire:0,   bubbles:.8,cutoff:520,   thunder:false },
+    // overboard — calm: muffled storm above, the odd quiet bubble
+    water:  { waves:.5,  surf:.1,  wind:.05, rumble:.2,  creak:.06, gulls:0,   fire:0,   bubbles:.28,cutoff:520,  thunder:false },
     // ashore: brighter, gulls, gentle surf
     island: { waves:.5,  surf:.6,  wind:.35, rumble:.12, creak:0,   gulls:.8,  fire:0,   bubbles:0, cutoff:18000, thunder:false }
   };
@@ -142,14 +142,15 @@
         var t = A.ctx.currentTime;
         var o = A.ctx.createOscillator(); o.type = 'sine';
         var og = A.ctx.createGain(); og.gain.value = 0;
-        var f0 = 280 + Math.random() * 500;
+        var f0 = 240 + Math.random() * 360;
         o.frequency.setValueAtTime(f0, t);
-        o.frequency.exponentialRampToValueAtTime(f0 * 2.4, t + .12);
-        og.gain.linearRampToValueAtTime(.25 * A.layers.bubbles.target, t + .01);
-        og.gain.exponentialRampToValueAtTime(.001, t + .16);
-        o.connect(og); og.connect(g); o.start(t); o.stop(t + .2);
+        o.frequency.exponentialRampToValueAtTime(f0 * 2.1, t + .14);
+        og.gain.linearRampToValueAtTime(.10 * A.layers.bubbles.target, t + .015);
+        og.gain.exponentialRampToValueAtTime(.001, t + .2);
+        o.connect(og); og.connect(g); o.start(t); o.stop(t + .24);
       }
-      setTimeout(blip, 120 + Math.random() * 380);
+      // gentle and infrequent — a calm place to sit
+      setTimeout(blip, 700 + Math.random() * 2400);
     })();
   }
 
@@ -268,6 +269,30 @@
     A.master.gain.setValueAtTime(A.master.gain.value, t);
     A.master.gain.linearRampToValueAtTime(A.muted ? 0 : 0.9, t + 0.4);
     return A.muted;
+  };
+
+  // a soft wooden creak/footfall when you move through the ship
+  A.move = function () {
+    if (!A.ready || A.muted) return;
+    var t = A.ctx.currentTime;
+    // low thud
+    var n = A.ctx.createBufferSource(); n.buffer = noiseBuffer(A.ctx, .3, 'brown');
+    var lp = A.ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 180;
+    var g = A.ctx.createGain(); g.gain.value = 0;
+    g.gain.linearRampToValueAtTime(.4, t + .02);
+    g.gain.exponentialRampToValueAtTime(.001, t + .28);
+    n.connect(lp); lp.connect(g); g.connect(A.master);
+    n.start(t); n.stop(t + .3);
+    // timber creak
+    var o = A.ctx.createOscillator(); o.type = 'sawtooth';
+    var f = 80 + Math.random() * 60; o.frequency.setValueAtTime(f, t);
+    o.frequency.linearRampToValueAtTime(f * 1.4, t + .5);
+    var bp = A.ctx.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 300; bp.Q.value = 8;
+    var og = A.ctx.createGain(); og.gain.value = 0;
+    og.gain.linearRampToValueAtTime(.22, t + .12);
+    og.gain.exponentialRampToValueAtTime(.001, t + .7);
+    o.connect(bp); bp.connect(og); og.connect(A.master);
+    o.start(t); o.stop(t + .8);
   };
 
   window.BRN = window.BRN || {};

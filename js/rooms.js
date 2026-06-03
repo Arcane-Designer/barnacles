@@ -22,6 +22,48 @@
     }).join('') + '</div>';
   }
 
+  /* ---- Barnacles book sections (flip-through) ---- */
+  var QSECTIONS = [
+    { key:'about',   name:'About' },
+    { key:'crew',    name:'The Crew' },
+    { key:'lines',   name:'The Lines' },
+    { key:'phrases', name:'Phrases' },
+    { key:'map',     name:'The Map' },
+    { key:'music',   name:'The Music' }
+  ];
+  function quartersSection(key){
+    var b = C.book;
+    if(key==='crew'){
+      return '<div class="booksection"><div class="grid cols-3">' +
+        b.crew.map(function(c){ return '<div class="panel char"><div class="role">'+esc(c.role)+'</div><div class="name">'+esc(c.name)+'</div><p>'+esc(c.note)+'</p></div>'; }).join('') + '</div>' +
+        '<div class="panel" style="margin-top:14px"><h3>Building each soul</h3><ul>' +
+        b.crewPrompts.map(function(p){return '<li style="margin:.4em 0">'+esc(p)+'</li>';}).join('') + '</ul></div></div>';
+    }
+    if(key==='lines'){
+      return '<div class="booksection"><p class="soon">Your words, held here &mdash; never rewritten.</p><div class="grid cols-2">' +
+        b.lines.map(function(l){return '<div class="note-paper"><div class="q">'+esc(l)+'</div></div>';}).join('') + '</div></div>';
+    }
+    if(key==='phrases'){
+      return '<div class="booksection"><div class="grid cols-2">' +
+        b.phrases.map(function(p){return '<div class="note-paper"><div class="q">'+esc(p)+'</div></div>';}).join('') +
+        '<div class="note-paper"><div class="q" style="font-style:normal">'+esc(b.proverbs)+'</div></div></div></div>';
+    }
+    if(key==='map'){
+      return '<div class="booksection"><img src="assets/map.jpg" alt="Map" style="width:100%;border-radius:6px;border:1px solid rgba(201,162,74,.3)" ' +
+        'onerror="this.outerHTML=\'<div class=&quot;panel cover-missing&quot; style=&quot;width:100%;aspect-ratio:auto;min-height:180px&quot;>Drop a map image at assets/map.jpg and it lives here.</div>\'" /></div>';
+    }
+    if(key==='music'){
+      return '<div class="booksection"><div class="grid cols-2">' +
+        b.music.map(function(m){return '<div class="panel"><h3 style="margin:.2em 0">'+esc(m.t)+'</h3><p style="color:var(--parch-dim)">'+esc(m.why)+'</p></div>';}).join('') + '</div></div>';
+    }
+    // about
+    return '<div class="booksection"><div class="cover-frame">' +
+      '<img src="assets/cover.jpg" alt="Barnacles cover" onerror="this.outerHTML=\'<div class=&quot;cover-missing&quot;>Drop your cover art at assets/cover.jpg and it appears here.</div>\'" />' +
+      '<div style="flex:1;min-width:260px"><p class="room-lede">'+b.blurb+'</p>' +
+      '<p><a class="btn-ghost" href="https://www.instagram.com/barnacles_book/" target="_blank" rel="noopener">Follow @barnacles_book</a> ' +
+      '<span class="soon">&nbsp; Buy / read the book — coming when it\'s ready.</span></p></div></div></div>';
+  }
+
   var rooms = {
 
     ships: {
@@ -137,31 +179,24 @@
     },
 
     quarters: {
-      title:"Captain's Quarters", kicker:"The Book — Barnacles",
+      title:"Barnacles", kicker:"The Open Book",
       render:function(){
-        var b = C.book;
-        var cover =
-          '<div class="cover-frame">' +
-            '<img src="assets/cover.jpg" alt="Barnacles cover" onerror="this.outerHTML=\'<div class=&quot;cover-missing&quot;>Drop your cover art at assets/cover.jpg and it appears here.</div>\'" />' +
-            '<div style="flex:1;min-width:260px"><p class="room-lede">'+b.blurb+'</p>' +
-            '<p><a class="btn-ghost" href="https://www.instagram.com/barnacles_book/" target="_blank" rel="noopener">Follow @barnacles_book</a> ' +
-            '<span class="soon">&nbsp; Buy / read the book — coming when it\'s ready.</span></p></div>' +
-          '</div>';
-        var crew = '<h3 class="section">The Crew</h3><div class="grid cols-3">' +
-          b.crew.map(function(c){
-            return '<div class="panel char"><div class="role">'+esc(c.role)+'</div><div class="name">'+esc(c.name)+'</div><p>'+esc(c.note)+'</p></div>';
-          }).join('') + '</div>' +
-          '<div class="panel" style="margin-top:14px"><h3>Building each soul</h3><ul>' +
-          b.crewPrompts.map(function(p){return '<li style="margin:.4em 0">'+esc(p)+'</li>';}).join('') + '</ul></div>';
-        var lines = '<h3 class="section">The Lines</h3><p class="soon">Your words, held here &mdash; never rewritten.</p><div class="grid cols-2">' +
-          b.lines.map(function(l){return '<div class="note-paper"><div class="q">'+esc(l)+'</div></div>';}).join('') + '</div>';
-        var phrases = '<h3 class="section">Phrases to make stick</h3><div class="grid cols-2">' +
-          b.phrases.map(function(p){return '<div class="note-paper"><div class="q">'+esc(p)+'</div></div>';}).join('') +
-          '<div class="note-paper"><div class="q" style="font-style:normal">'+esc(b.proverbs)+'</div></div></div>';
-        var map = '<h3 class="section">The Map</h3><div class="panel cover-missing" style="width:100%;aspect-ratio:auto;min-height:160px">Drop a map image at assets/map.jpg and it lives here.</div>';
-        var music = '<h3 class="section">The Music</h3><div class="grid cols-2">' +
-          b.music.map(function(m){return '<div class="panel"><h3 style="margin:.2em 0">'+esc(m.t)+'</h3><p style="color:var(--parch-dim)">'+esc(m.why)+'</p></div>';}).join('') + '</div>';
-        return roomHead(this) + cover + crew + lines + phrases + map + music;
+        var tabs = QSECTIONS.map(function(s,i){
+          return '<button class="booktab'+(i===0?' active':'')+'" data-sec="'+s.key+'">'+esc(s.name)+'</button>';
+        }).join('');
+        return roomHead(this) +
+          '<p class="room-lede">The book being written. Flip through its sections &mdash; this is your material, held and arranged, never authored by anyone but you.</p>' +
+          '<div class="booktabs">'+tabs+'</div>' +
+          '<div class="booksection" id="booksection">'+quartersSection('about')+'</div>';
+      },
+      init:function(el){
+        el.querySelectorAll('.booktab').forEach(function(b){
+          b.addEventListener('click', function(){
+            el.querySelectorAll('.booktab').forEach(function(x){x.classList.remove('active');});
+            b.classList.add('active');
+            el.querySelector('#booksection').innerHTML = quartersSection(b.dataset.sec);
+          });
+        });
       }
     },
 
