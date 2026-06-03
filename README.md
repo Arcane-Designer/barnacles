@@ -29,17 +29,30 @@ Just **double-click `index.html`** — it works straight off the disk, no server
 
 All the words live in `js/content.js` — add ships, shanties, terms, timeline entries, crew, lines, and music by editing those arrays. No coding the layout required.
 
+## How you move
+
+You don't jump between pages — you **move through the ship**. Start at the helm and choose
+doors, hatches, ladders, the mast, or the rail to travel: helm ⇄ main deck ⇄ forecastle,
+down to the gun deck, hold, galley, and great cabin, up to the crow's nest, or overboard
+into the sea. Paths loop; most rooms can be reached more than one way. A slow **day/night
+cycle** drifts overhead (calmer and brighter by day, stormier at night).
+
 ## Structure
 
 ```
-index.html        # shell: gate, rail, view, footer
-css/styles.css    # theme
+index.html        # shell: layered scene stack, floating header, gate
+css/styles.css    # theme + ship interface + transitions
 js/content.js     # all the words (edit me)
+js/clock.js       # day/night cycle (CYCLE_MS to retune)
 js/audio.js       # procedural zone audio engine
-js/weather.js     # canvas rain / lightning / motes / bubbles
-js/rooms.js       # each room's HTML + interactivity
-js/app.js         # hash router + wiring
-assets/           # cover.jpg, map.jpg, ...
+js/weather.js     # canvas rain / lightning / motes / bubbles (clock-aware)
+js/scenes.js      # the SVG backdrop for each location
+js/rooms.js       # each room's content panel + interactivity
+js/ship.js        # the ship layout, exits, and movement transitions
+js/app.js         # boot + wiring
+assets/           # cover.jpg, map.jpg
+assets/rooms/     # optional realistic backgrounds (see ASSET-PROMPTS.md)
+ASSET-PROMPTS.md  # image-generation prompts for realistic room art
 ```
 
 ## Publishing to GitHub Pages (later)

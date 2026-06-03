@@ -167,8 +167,6 @@ window.BRN.content = {
       "May the flood come swift and wash you ‘way to the land of forever."
     ],
     proverbs: "“Her feet go down to death, her steps lay hold of hell. … For she has cast down many wounded, and all who were slain by her were strong men. Her house is the way to hell, descending to the chambers of death.” — Proverbs",
-    words: ["shoals","outlandish","concoction","aright"],
-    creepy: ["Careful where you step.","Human-shaped, disfigured things.","One bite, one touch, one little thing — and you’re dead.","Old things: a fuzzy camera feed, beat-up houses.","Reflections and mirrors.","Raining beings.","A bridge of bodies.","Glowing caves."],
     music: [
       { t:"Sea-shanty revival (Nathan Evans, The Longest Johns)", why:"For the work-song heartbeat and crew choruses." },
       { t:"Dark folk / neofolk (Wardruna, Heilung)", why:"Ritual, storm, and dread — for the cursed-magic undertow." },
