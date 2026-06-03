@@ -88,8 +88,10 @@
 
     var sceneEl = el('scene');
     sceneEl.className = scene.indoor ? 'indoor' : 'outdoor';
+    // photo scenes embed their own image (with aligned hotspots); others get an
+    // auto-overlay image if a matching file exists in assets/rooms/.
     sceneEl.innerHTML = scene.render() +
-      '<img class="scene-photo" alt="" src="assets/rooms/'+sk+'.jpg" onload="this.classList.add(\'shown\')" onerror="this.remove()" />';
+      (scene.photo ? '' : '<img class="scene-photo" alt="" src="assets/rooms/'+sk+'.jpg" onload="this.classList.add(\'shown\')" onerror="this.remove()" />');
 
     if(window.BRN.Audio) window.BRN.Audio.setZone(loc.zone||'deck');
     if(window.BRN.Weather) window.BRN.Weather.setMode(loc.weather||'storm');
@@ -107,13 +109,20 @@
     window.scrollTo(0,0);
   };
 
+  // Take a book off the shelf / desk: open it in the pop-up reader.
   Ship.openContent = function(roomKey){
     var room = window.BRN.rooms[roomKey]; if(!room) return;
-    var content = el('content'); content.innerHTML='';
+    var body = el('book-body'); body.innerHTML='';
     var wrap=document.createElement('div'); wrap.className='content-room';
-    wrap.innerHTML=room.render(); content.appendChild(wrap); if(room.init) room.init(wrap);
+    wrap.innerHTML=room.render(); body.appendChild(wrap); if(room.init) room.init(wrap);
+    var m=el('bookmodal'); m.classList.add('open'); m.setAttribute('aria-hidden','false');
+    body.scrollTop=0;
     if(window.BRN.Audio) window.BRN.Audio.move();
-    wrap.scrollIntoView({behavior:'smooth', block:'start'});
+  };
+  Ship.closeBook = function(){
+    var m=el('bookmodal'); if(!m) return;
+    m.classList.remove('open'); m.setAttribute('aria-hidden','true');
+    el('book-body').innerHTML='';
   };
 
   function trClass(type){
@@ -157,12 +166,14 @@
     document.addEventListener('click', function(e){
       var t=e.target;
       while(t && t.getAttribute){
+        if(t.getAttribute('data-close')){ Ship.closeBook(); return; }
         if(t.getAttribute('data-turn')){ Ship.turn(); return; }
         var to=t.getAttribute('data-to'); if(to){ Ship.go(to, t.getAttribute('data-type')); return; }
         var open=t.getAttribute('data-open'); if(open){ Ship.openContent(open); return; }
         t=t.parentNode;
       }
     });
+    document.addEventListener('keydown', function(e){ if(e.key==='Escape') Ship.closeBook(); });
   };
 
   Ship.graph = GRAPH;

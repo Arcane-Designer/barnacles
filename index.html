@@ -39,6 +39,15 @@
   <div class="tr-label"></div>
 </div>
 
+<!-- Book reader pop-up (opens when you take a book off the shelf / desk) -->
+<div id="bookmodal" aria-hidden="true">
+  <div class="book-backdrop" data-close="1"></div>
+  <div class="book-panel" role="dialog" aria-modal="true">
+    <button class="book-close" data-close="1" title="Put it back">&#10550; Put it back</button>
+    <div class="book-body" id="book-body"></div>
+  </div>
+</div>
+
 <!-- Tap to come aboard -->
 <div id="gate">
   <div class="gate-inner">

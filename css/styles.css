@@ -138,6 +138,7 @@ body:not(.aboard) #brand, body:not(.aboard) #sound-toggle{ display:none; }
 
 /* baked-in navigation: drawn doors/ladders/hatches/books are the buttons */
 #scene{ pointer-events:none; }
+#scene.indoor{ background:#0a0603; }
 #scene .nav{ pointer-events:auto; cursor:pointer; }
 #scene .nav .hit{ fill:transparent; }
 #scene .nav .hl{ opacity:0; transition:opacity .18s ease; }
@@ -149,6 +150,40 @@ body:not(.aboard) #brand, body:not(.aboard) #sound-toggle{ display:none; }
 #scene .nav .lblbg{ fill:rgba(7,10,14,.82); stroke:rgba(201,162,74,.55); stroke-width:1.5; }
 #scene .nav .lbltx{ fill:#efe7d4; font-family:var(--display); font-size:25px; text-anchor:middle; dominant-baseline:middle; paint-order:stroke; }
 @keyframes beacon{ 0%,100%{ opacity:.16; } 50%{ opacity:.5; } }
+
+/* photo rooms: clickable spots stay invisible (clean photo), reveal a soft
+   outline + label only on hover. They live in the same SVG space as the
+   photo, so they track the image exactly at any window size. */
+#scene .nav.photo .beacon{ display:none; }
+#scene .nav.photo .hl{ fill:#ffe9a8; }
+#scene .nav.photo:hover .hl{ opacity:.14; }
+#scene .nav.photo .ho{ opacity:0; transition:opacity .15s ease; }
+#scene .nav.photo:hover .ho{ opacity:.85; }
+#scene .flicker{ animation:flicker 3.6s ease-in-out infinite; }
+@keyframes flicker{ 0%,100%{ opacity:.55; } 25%{ opacity:.85; } 50%{ opacity:.4; } 72%{ opacity:.72; } }
+
+/* ---- book reader pop-up ---- */
+#bookmodal{ position:fixed; inset:0; z-index:70; display:none; }
+#bookmodal.open{ display:block; }
+.book-backdrop{ position:absolute; inset:0; background:rgba(3,5,8,.74); backdrop-filter:blur(3px); animation:fade-in .3s ease; }
+@keyframes fade-in{ from{opacity:0;} to{opacity:1;} }
+.book-panel{
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  width:min(940px,94vw); height:min(86vh,1000px); display:flex; flex-direction:column;
+  background:linear-gradient(180deg,#1a120a,#0d0805); border:1px solid rgba(201,162,74,.4);
+  border-radius:10px; box-shadow:0 30px 90px rgba(0,0,0,.7), inset 0 0 60px rgba(0,0,0,.5);
+  animation:bookin .34s cubic-bezier(.2,.9,.3,1.2);
+}
+@keyframes bookin{ from{opacity:0; transform:translate(-50%,-46%) scale(.96);} to{opacity:1; transform:translate(-50%,-50%) scale(1);} }
+.book-close{
+  position:absolute; top:-16px; right:-6px; z-index:2;
+  font-family:var(--display); letter-spacing:.1em; text-transform:uppercase; font-size:12px;
+  color:#12100a; background:linear-gradient(180deg,var(--gold-bright),var(--gold)); border:none;
+  padding:9px 16px; border-radius:20px; cursor:pointer; box-shadow:0 6px 16px rgba(0,0,0,.6);
+}
+.book-close:hover{ transform:translateY(-1px); }
+.book-body{ overflow-y:auto; padding:34px 30px 40px; }
+.book-panel .content-room{ background:transparent; border:none; box-shadow:none; padding:0; margin:0; max-width:none; animation:none; }
 
 #scene-ui{ position:relative; min-height:100vh; pointer-events:none; }
 #scene-ui.turning{ opacity:0; transition:opacity .22s ease; }

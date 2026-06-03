@@ -28,6 +28,20 @@
   function hl(x,y,w,h,rx){ return '<rect class="hl" x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" rx="'+(rx||6)+'" fill="#ffe9a8"/>'; }
   function hit(x,y,w,h){ return '<rect class="hit" x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" fill="transparent"/>'; }
 
+  /* a clickable spot over a photographed feature: invisible until hover,
+     then a soft fill + outline + label. Lives in the SVG so it always
+     tracks the image, at any window size. */
+  function photoHot(data, label, x, y, w, h){
+    return '<g class="nav photo" '+data+'>'+
+      '<title>'+esc(label)+'</title>'+
+      '<rect class="hl" x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" rx="10" fill="#ffe9a8"/>'+
+      '<rect class="ho" x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" rx="10" fill="none" stroke="#e6c468" stroke-width="4"/>'+
+      '<g class="navlabel" transform="translate('+(x+w/2)+' '+(y-18)+')">'+
+        '<rect class="lblbg" x="-170" y="-24" width="340" height="42" rx="10"/>'+
+        '<text class="lbltx" x="0" y="3">'+esc(label)+'</text></g>'+
+      hit(x,y,w,h)+'</g>';
+  }
+
   /* ---- reusable décor ---- */
   function defs(extra){
     return '<defs>'+
@@ -241,22 +255,21 @@
       );
     }},
 
-    cabin_fore: { indoor:true, render:function(){
-      return svg(defs()+
-        '<rect x="0" y="0" width="1600" height="900" fill="url(#woodWall)"/>'+
-        // stern gallery windows (décor)
-        (function(){var s='<rect x="540" y="100" width="520" height="360" rx="10" fill="#2a1a0c"/>';for(var c=0;c<3;c++)for(var r=0;r<2;r++)s+='<rect x="'+(560+c*165)+'" y="'+(120+r*165)+'" width="150" height="150" rx="6" fill="#7fae9e" opacity="0.7"/>';return s;})()+
-        beams()+ planks(640,260)+
-        // desk décor
-        '<g transform="translate(800,650)"><rect x="-230" y="0" width="460" height="40" rx="8" fill="#5a3d22"/><rect x="-210" y="40" width="40" height="120" fill="#3a2614"/><rect x="170" y="40" width="40" height="120" fill="#3a2614"/><rect x="150" y="-44" width="16" height="44" fill="#e9dcbd"/><circle cx="158" cy="-50" r="11" fill="url(#fire)"/></g>'+
-        '<circle cx="800" cy="560" r="170" fill="url(#lant)" opacity="0.5"/>'+
-        // NAV: the open book on the desk
-        openBookObj(780, 612, 'data-open="quarters"', "The open book — Barnacles")+
-        // NAV: forward door to gun deck (left within safe zone)
-        doorObj(350, 460, 150, 250, 'data-to="gundeck" data-type="door"', "Forward to the gun deck")+
-        // NAV: companionway up to helm (right within safe zone)
-        ladderUpObj(1180, 400, 720, 'data-to="helm" data-type="up"', "Up the companionway to the helm")
-      );
+    cabin_fore: { indoor:true, photo:true, render:function(){
+      // Real photo backdrop with hotspots in the SAME coordinate space, so the
+      // door / ladder / book click-areas always track the image. 'meet' keeps the
+      // whole image (and every hotspot) on screen at any window shape.
+      return '<svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">'+
+        '<defs><radialGradient id="cand" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffd98a"/><stop offset="55%" stop-color="#ff9a3a" stop-opacity="0.35"/><stop offset="100%" stop-color="#ff9a3a" stop-opacity="0"/></radialGradient></defs>'+
+        '<rect x="0" y="0" width="1600" height="900" fill="#0a0603"/>'+
+        '<image href="assets/rooms/cabin_fore.jpg" xlink:href="assets/rooms/cabin_fore.jpg" x="0" y="0" width="1600" height="900" preserveAspectRatio="xMidYMid meet"/>'+
+        // candle flicker over the flame
+        '<circle class="flicker" cx="992" cy="556" r="150" fill="url(#cand)"/>'+
+        // hotspots aligned to the painted features
+        photoHot('data-to="gundeck" data-type="door"', "Forward to the gun deck", 24, 78, 292, 470)+
+        photoHot('data-to="helm" data-type="up"', "Up the companionway to the helm", 1244, 78, 332, 548)+
+        photoHot('data-open="quarters"', "Open the book — Barnacles", 408, 636, 514, 244)+
+      '</svg>';
     }},
 
     cabin_aft: { indoor:true, render:function(){
@@ -272,11 +285,11 @@
         decor + shelves +
         '<circle cx="800" cy="470" r="220" fill="url(#lant)" opacity="0.35"/>'+ planks(800,100)+
         // the five learning books (clickable) sitting prominently on the shelves
-        bookSpineObj(390, 160, 'data-open="ships"',    "How Ships Work",   '#6b4a28')+
-        bookSpineObj(585, 160, 'data-open="shanties"', "Shanties",         '#3a5a4a')+
-        bookSpineObj(780, 160, 'data-open="speak"',    "Pirate Speak",     '#7a3a2a')+
-        bookSpineObj(975, 160, 'data-open="history"',  "History of Piracy",'#3a4a6a')+
-        bookSpineObj(1170,160, 'data-open="forge"',    "The Forge",        '#a8552e')
+        bookSpineObj(390, 380, 'data-open="ships"',    "How Ships Work",   '#6b4a28')+
+        bookSpineObj(585, 380, 'data-open="shanties"', "Shanties",         '#3a5a4a')+
+        bookSpineObj(780, 380, 'data-open="speak"',    "Pirate Speak",     '#7a3a2a')+
+        bookSpineObj(975, 380, 'data-open="history"',  "History of Piracy",'#3a4a6a')+
+        bookSpineObj(1170,380, 'data-open="forge"',    "The Forge",        '#a8552e')
       );
     }},
 
