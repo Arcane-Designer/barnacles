@@ -88,10 +88,9 @@
 
     var sceneEl = el('scene');
     sceneEl.className = scene.indoor ? 'indoor' : 'outdoor';
-    // photo scenes embed their own image (with aligned hotspots); others get an
-    // auto-overlay image if a matching file exists in assets/rooms/.
-    sceneEl.innerHTML = scene.render() +
-      (scene.photo ? '' : '<img class="scene-photo" alt="" src="assets/rooms/'+sk+'.jpg" onload="this.classList.add(\'shown\')" onerror="this.remove()" />');
+    // Rooms are our own drawn art. (A generated image can still be placed as a
+    // prop INSIDE a scene when it makes sense — just not as the whole room.)
+    sceneEl.innerHTML = scene.render();
 
     if(window.BRN.Audio) window.BRN.Audio.setZone(loc.zone||'deck');
     if(window.BRN.Weather) window.BRN.Weather.setMode(loc.weather||'storm');

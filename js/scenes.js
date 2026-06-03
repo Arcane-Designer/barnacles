@@ -50,6 +50,7 @@
       '<linearGradient id="woodWall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2c1d10"/><stop offset="1" stop-color="#160d06"/></linearGradient>'+
       '<radialGradient id="lant" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffce6e"/><stop offset="60%" stop-color="#b8801f" stop-opacity="0.4"/><stop offset="100%" stop-color="#b8801f" stop-opacity="0"/></radialGradient>'+
       '<radialGradient id="fire" cx="50%" cy="60%" r="55%"><stop offset="0" stop-color="#ffd36b"/><stop offset="35%" stop-color="#ff8a2a"/><stop offset="80%" stop-color="#7a2a0a" stop-opacity="0.5"/><stop offset="100%" stop-color="#7a2a0a" stop-opacity="0"/></radialGradient>'+
+      '<radialGradient id="cand" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffd98a"/><stop offset="55%" stop-color="#ff9a3a" stop-opacity="0.32"/><stop offset="100%" stop-color="#ff9a3a" stop-opacity="0"/></radialGradient>'+
       (extra||'')+'</defs>';
   }
   function sea(yTop){
@@ -88,7 +89,8 @@
       '<line x1="'+x+'" y1="'+top+'" x2="'+x+'" y2="'+bot+'" stroke="#8a6a3a" stroke-width="7"/>'+
       '<line x1="'+(x+w)+'" y1="'+top+'" x2="'+(x+w)+'" y2="'+bot+'" stroke="#8a6a3a" stroke-width="7"/>'+
       rungs + hl(x-4,top,w+8,bot-top,6) + hit(x-14,top-30,w+28,(bot-top)+40);
-    return nav(data, label, art, cx, top-42);
+    var ly = Math.max(top-42, 130); // keep label visible even when the ladder runs off the top
+    return nav(data, label, art, cx, ly);
   }
   function hatchDownObj(cx, cy, data, label){
     var w=210, h=120, x=cx-w/2, y=cy-h/2, rungs='';
@@ -255,21 +257,30 @@
       );
     }},
 
-    cabin_fore: { indoor:true, photo:true, render:function(){
-      // Real photo backdrop with hotspots in the SAME coordinate space, so the
-      // door / ladder / book click-areas always track the image. 'meet' keeps the
-      // whole image (and every hotspot) on screen at any window shape.
-      return '<svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">'+
-        '<defs><radialGradient id="cand" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffd98a"/><stop offset="55%" stop-color="#ff9a3a" stop-opacity="0.35"/><stop offset="100%" stop-color="#ff9a3a" stop-opacity="0"/></radialGradient></defs>'+
-        '<rect x="0" y="0" width="1600" height="900" fill="#0a0603"/>'+
-        '<image href="assets/rooms/cabin_fore.jpg" xlink:href="assets/rooms/cabin_fore.jpg" x="0" y="0" width="1600" height="900" preserveAspectRatio="xMidYMid meet"/>'+
-        // candle flicker over the flame
-        '<circle class="flicker" cx="992" cy="556" r="150" fill="url(#cand)"/>'+
-        // hotspots aligned to the painted features
-        photoHot('data-to="gundeck" data-type="door"', "Forward to the gun deck", 24, 78, 292, 470)+
-        photoHot('data-to="helm" data-type="up"', "Up the companionway to the helm", 1244, 78, 332, 548)+
-        photoHot('data-open="quarters"', "Open the book — Barnacles", 408, 636, 514, 244)+
-      '</svg>';
+    cabin_fore: { indoor:true, render:function(){
+      var FLOOR = 660;
+      return svg(defs()+
+        '<rect x="0" y="0" width="1600" height="900" fill="url(#woodWall)"/>'+
+        // stern gallery windows, centered behind the desk
+        (function(){var s='<rect x="540" y="120" width="520" height="330" rx="10" fill="#2a1a0c"/>';for(var c=0;c<3;c++)for(var r=0;r<2;r++)s+='<rect x="'+(558+c*168)+'" y="'+(138+r*150)+'" width="150" height="132" rx="6" fill="#7fae9e" opacity="0.62"/>';return s;})()+
+        beams()+
+        // floor + skirting (so the door clearly sits on the deck)
+        planks(FLOOR,240)+
+        '<rect x="0" y="'+(FLOOR-6)+'" width="1600" height="10" fill="#1c1206"/>'+
+        // desk on the floor
+        '<g transform="translate(800,648)"><rect x="-250" y="-10" width="500" height="46" rx="8" fill="#5a3d22"/><rect x="-230" y="36" width="46" height="158" fill="#3a2614"/><rect x="184" y="36" width="46" height="158" fill="#3a2614"/></g>'+
+        // candle (right of the book) with a flickering glow
+        '<g transform="translate(980,604)"><rect x="-8" y="-50" width="16" height="52" fill="#e9dcbd"/><circle cx="0" cy="-58" r="12" fill="url(#fire)"/></g>'+
+        '<circle class="flicker" cx="980" cy="556" r="150" fill="url(#cand)"/>'+
+        '<circle cx="800" cy="560" r="180" fill="url(#lant)" opacity="0.4"/>'+
+        // NAV: door — full door height, grounded on the floor, set into the wall
+        '<rect x="158" y="296" width="212" height="'+(FLOOR-296+6)+'" rx="6" fill="#1c120a"/>'+ // door frame in wall
+        doorObj(180, 318, 168, FLOOR-318, 'data-to="gundeck" data-type="door"', "Forward to the gun deck")+
+        // NAV: companionway ladder — runs up off the top of the frame (leads out)
+        ladderUpObj(1230, -60, FLOOR-6, 'data-to="helm" data-type="up"', "Up the companionway to the helm")+
+        // NAV: the open book on the desk
+        openBookObj(700, 598, 'data-open="quarters"', "Open the book — Barnacles")
+      );
     }},
 
     cabin_aft: { indoor:true, render:function(){
