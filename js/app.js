@@ -21,6 +21,7 @@
   function init() {
     if (window.BRN.Weather) window.BRN.Weather.mount();
     if (window.BRN.Clock) window.BRN.Clock.init();
+    if (window.BRN.Map) window.BRN.Map.init();
 
     el('gate-btn').addEventListener('click', comeAboard);
 

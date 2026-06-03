@@ -49,8 +49,7 @@
         '<div class="note-paper"><div class="q" style="font-style:normal">'+esc(b.proverbs)+'</div></div></div></div>';
     }
     if(key==='map'){
-      return '<div class="booksection"><img src="assets/map.jpg" alt="Map" style="width:100%;border-radius:6px;border:1px solid rgba(201,162,74,.3)" ' +
-        'onerror="this.outerHTML=\'<div class=&quot;panel cover-missing&quot; style=&quot;width:100%;aspect-ratio:auto;min-height:180px&quot;>Drop a map image at assets/map.jpg and it lives here.</div>\'" /></div>';
+      return '<div class="booksection">'+window.BRN.games.treasureMap().html+'</div>';
     }
     if(key==='music'){
       return '<div class="booksection"><div class="grid cols-2">' +
@@ -178,6 +177,83 @@
       }
     },
 
+    pirates: {
+      title:"Famous Pirates", kicker:"Names that never sank",
+      render:function(){
+        return roomHead(this) + '<p class="room-lede">'+C.piratesIntro+'</p>' +
+          '<div class="grid cols-2" style="margin-top:18px">' + C.pirates.map(function(p){
+            return '<div class="panel"><span class="tag">'+esc(p.tag)+'</span>' +
+              '<h3 style="margin:.3em 0">'+esc(p.name)+'</h3>' +
+              '<p style="color:var(--gold-bright);font-size:13px;letter-spacing:.04em">'+esc(p.years)+'</p>' +
+              '<p>'+p.blurb+'</p></div>';
+          }).join('') + '</div>';
+      }
+    },
+
+    code: {
+      title:"The Pirate Code", kicker:"Articles of Agreement",
+      render:function(){
+        return roomHead(this) + '<p class="room-lede">'+C.codeIntro+'</p>' +
+          '<div class="articles">' + C.code.map(function(a){
+            return '<div class="article"><span class="art-n">'+esc(a.n)+'</span><span class="art-t">'+a.text+'</span></div>';
+          }).join('') + '</div>';
+      }
+    },
+
+    flags: {
+      title:"Flags & Signals", kicker:"Warfare on the wind",
+      render:function(){
+        return roomHead(this) + '<p class="room-lede">'+C.flagsIntro+'</p>' +
+          '<h3 class="section">Read the colours</h3><div class="grid cols-2">' +
+          C.flags.map(function(f){ return '<div class="panel"><h3 style="margin:.2em 0">'+esc(f.name)+'</h3><p>'+f.desc+'</p></div>'; }).join('') + '</div>' +
+          '<h3 class="section">Fly your own</h3>' + window.BRN.games.flagDesigner().html;
+      },
+      init:function(el){ window.BRN.games.flagDesigner().init(el); }
+    },
+
+    knots: {
+      title:"Knots & Rigging", kicker:"A ship runs on rope",
+      render:function(){
+        return roomHead(this) + '<p class="room-lede">'+C.knotsIntro+'</p>' +
+          window.BRN.games.knotAnimator().html +
+          '<h3 class="section">The essentials</h3><div class="grid cols-2">' +
+          C.knots.map(function(k){ return '<div class="panel"><h3 style="margin:.2em 0">'+esc(k.name)+'</h3><p>'+k.use+'</p></div>'; }).join('') + '</div>';
+      },
+      init:function(el){ window.BRN.games.knotAnimator().init(el); }
+    },
+
+    navigation: {
+      title:"Navigation & the Stars", kicker:"Finding the way",
+      render:function(){
+        return roomHead(this) + '<p class="room-lede">'+C.navIntro+'</p>' +
+          '<div class="grid cols-2" style="margin-top:18px">' + C.navigation.map(function(n){
+            return '<div class="panel"><h3 style="margin:.2em 0">'+esc(n.name)+'</h3><p>'+n.desc+'</p></div>';
+          }).join('') + '</div>';
+      }
+    },
+
+    life: {
+      title:"Life Aboard", kicker:"The unromantic truth",
+      render:function(){
+        return roomHead(this) + '<p class="room-lede">'+C.lifeIntro+'</p>' +
+          '<div class="grid cols-2" style="margin-top:18px">' + C.life.map(function(n){
+            return '<div class="panel"><h3 style="margin:.2em 0">'+esc(n.name)+'</h3><p>'+n.desc+'</p></div>';
+          }).join('') + '</div>';
+      }
+    },
+
+    steering: {
+      title:"Take the Wheel", kicker:"",
+      render:function(){ return '<h3 class="section">Hold the course</h3>' + window.BRN.games.steering().html; },
+      init:function(el){ window.BRN.games.steering().init(el); }
+    },
+
+    careen: {
+      title:"Careen the Hull", kicker:"",
+      render:function(){ return '<h3 class="section">Scrape the barnacles</h3>' + window.BRN.games.barnacle().html; },
+      init:function(el){ window.BRN.games.barnacle().init(el); }
+    },
+
     quarters: {
       title:"Barnacles", kicker:"The Open Book",
       render:function(){
@@ -194,7 +270,9 @@
           b.addEventListener('click', function(){
             el.querySelectorAll('.booktab').forEach(function(x){x.classList.remove('active');});
             b.classList.add('active');
-            el.querySelector('#booksection').innerHTML = quartersSection(b.dataset.sec);
+            var sec=b.dataset.sec, bs=el.querySelector('#booksection');
+            bs.innerHTML = quartersSection(sec);
+            if(sec==='map') window.BRN.games.treasureMap().init(bs);
           });
         });
       }

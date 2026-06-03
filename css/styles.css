@@ -376,10 +376,109 @@ h3{ font-family:var(--display); color:var(--bone); }
 ::-webkit-scrollbar-thumb{ background:#2a3a44; border-radius:6px; border:2px solid var(--abyss); }
 ::-webkit-scrollbar-thumb:hover{ background:var(--teal); }
 
+/* ---- map button in header ---- */
+#map-toggle{
+  position:fixed; top:16px; right:74px; z-index:40; width:42px; height:42px; border-radius:50%;
+  background:transparent; border:none; color:var(--gold-bright); cursor:pointer; padding:0;
+  filter:drop-shadow(0 2px 8px #000); transition:transform .15s ease, color .15s ease;
+}
+#map-toggle:hover{ transform:scale(1.12) rotate(20deg); color:#fff; }
+body:not(.aboard) #map-toggle{ display:none; }
+
+/* ---- ship map overlay ---- */
+#shipmap{ position:fixed; inset:0; z-index:72; display:none; }
+#shipmap.open{ display:block; }
+.shipmap-backdrop{ position:absolute; inset:0; background:rgba(3,5,8,.78); backdrop-filter:blur(3px); }
+.shipmap-panel{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:min(940px,95vw);
+  background:radial-gradient(140% 120% at 50% 0%, #18120b, #0c0805); border:2px solid #5a3d22; border-radius:10px;
+  box-shadow:0 30px 90px rgba(0,0,0,.75), inset 0 0 0 2px rgba(201,162,74,.35); padding:18px 20px 16px; }
+.shipmap-close{ position:absolute; top:10px; right:12px; background:none; border:none; color:var(--gold-bright); font-size:20px; cursor:pointer; }
+.shipmap-close:hover{ color:#fff; }
+.shipmap-title{ font-family:var(--pirate); font-size:26px; color:var(--bone); text-align:center; letter-spacing:.06em; }
+.shipmap-hint{ text-align:center; color:var(--parch-dim); font-size:13px; font-style:italic; margin-top:6px; }
+#shipmap-svg svg{ width:100%; height:auto; display:block; }
+.maproom rect{ fill:rgba(201,162,74,.05); stroke:rgba(201,162,74,.35); stroke-width:2; transition:fill .15s ease, stroke .15s ease; cursor:pointer; }
+.maproom .mr-label{ fill:var(--parch-dim); font-family:var(--display); font-size:19px; text-anchor:middle; dominant-baseline:central; pointer-events:none; letter-spacing:.03em; }
+.maproom:hover rect{ fill:rgba(230,196,104,.2); stroke:var(--gold-bright); }
+.maproom:hover .mr-label{ fill:#fff; }
+.maproom.visited rect{ stroke:rgba(201,162,74,.6); }
+.maproom .mr-check{ fill:#9fcf9f; font-size:18px; pointer-events:none; }
+.maproom.current rect{ fill:rgba(230,196,104,.26); stroke:var(--gold-bright); }
+.maproom .mr-here{ fill:var(--gold-bright); font-size:20px; pointer-events:none; }
+
+/* ---- generic game bits ---- */
+.game{ margin-top:8px; }
+.game-lede{ color:var(--parch-dim); font-style:italic; }
+.chip{ font-family:var(--display); font-size:12px; letter-spacing:.06em; color:var(--parch-dim); background:rgba(7,10,14,.5); border:1px solid rgba(201,162,74,.3); border-radius:4px; padding:7px 12px; cursor:pointer; transition:all .15s ease; margin:2px; }
+.chip:hover{ color:var(--bone); border-color:var(--gold); }
+.chip.on{ color:#12100a; background:linear-gradient(180deg,var(--gold-bright),var(--gold)); border-color:var(--gold); }
+.sw{ width:30px; height:30px; border-radius:50%; border:2px solid rgba(201,162,74,.35); cursor:pointer; margin:2px; padding:0; }
+.sw.on{ border-color:var(--gold-bright); box-shadow:0 0 0 2px rgba(230,196,104,.5); }
+
+/* flag designer */
+.flagmaker{ display:flex; gap:24px; flex-wrap:wrap; align-items:flex-start; }
+.flag-stage{ display:flex; align-items:stretch; min-height:240px; }
+.flag-pole{ width:10px; background:linear-gradient(90deg,#6b4a28,#3a2614); border-radius:5px; box-shadow:2px 0 6px rgba(0,0,0,.5); }
+.flag-cloth{ width:min(360px,70vw); transform-origin:left center; animation:wave 2.6s ease-in-out infinite; filter:drop-shadow(6px 8px 14px rgba(0,0,0,.5)); }
+.flag-cloth svg{ width:100%; height:auto; display:block; border-radius:0 4px 4px 0; }
+@keyframes wave{ 0%,100%{ transform:skewY(-1deg) scaleX(1);} 50%{ transform:skewY(1.4deg) scaleX(.985);} }
+.flag-controls{ flex:1; min-width:240px; }
+.fc-row{ display:flex; align-items:center; gap:10px; margin:8px 0; flex-wrap:wrap; }
+.fc-label{ font-family:var(--display); text-transform:uppercase; letter-spacing:.14em; font-size:12px; color:var(--teal); width:64px; }
+.fc-opts{ display:flex; flex-wrap:wrap; align-items:center; }
+.flag-controls .btn-ghost{ margin-top:12px; }
+
+/* knot animator */
+.knotgame{ }
+.knot-tabs{ display:flex; flex-wrap:wrap; gap:4px; margin-bottom:10px; }
+.knot-stage{ background:radial-gradient(circle at 50% 40%, #16202a, #0a1118); border:1px solid rgba(201,162,74,.25); border-radius:8px; max-width:420px; }
+.knot-stage svg{ width:100%; height:auto; display:block; }
+.knot-info{ margin:10px 0; color:var(--parchment); }
+
+/* steering */
+.steer{ max-width:560px; }
+.steer-gauge{ position:relative; height:54px; background:linear-gradient(180deg,#0a1620,#08111a); border:1px solid rgba(201,162,74,.3); border-radius:8px; margin:10px 0; overflow:hidden; }
+.steer-zone{ position:absolute; left:41%; width:18%; top:0; bottom:0; background:rgba(95,170,95,.22); border-left:1px dashed rgba(150,220,150,.5); border-right:1px dashed rgba(150,220,150,.5); }
+.steer-center{ position:absolute; left:50%; top:0; bottom:0; width:2px; background:rgba(230,196,104,.5); }
+.steer-marker{ position:absolute; top:6px; bottom:6px; width:6px; left:50%; transform:translateX(-50%); background:var(--oxblood); border-radius:3px; transition:background .15s ease; box-shadow:0 0 10px rgba(0,0,0,.6); }
+.steer-marker.good{ background:#7ed07e; }
+.steer-controls{ display:flex; align-items:center; gap:12px; }
+.wheelbtn{ font-family:var(--display); letter-spacing:.06em; font-size:13px; color:var(--gold-bright); background:rgba(7,10,14,.6); border:1px solid var(--gold); border-radius:6px; padding:10px 16px; cursor:pointer; user-select:none; }
+.wheelbtn:hover{ background:rgba(201,162,74,.18); }
+.wheelbtn:active{ background:var(--gold); color:#12100a; }
+.steer-meter{ flex:1; height:12px; background:rgba(7,10,14,.7); border:1px solid rgba(201,162,74,.3); border-radius:7px; overflow:hidden; }
+.steer-fill{ height:100%; width:0; background:linear-gradient(90deg,var(--gold),var(--gold-bright)); transition:width .1s linear; }
+.steer-score{ margin-top:8px; color:var(--parch-dim); font-style:italic; }
+
+/* barnacle scrape */
+.scrape #scrape-cv{ width:100%; border:1px solid rgba(201,162,74,.3); border-radius:8px; display:block; cursor:crosshair; background:#211408; }
+.scrape-hud{ display:flex; gap:12px; align-items:center; margin-top:10px; }
+
+/* treasure map */
+.tmap{ }
+.tmap-viewport{ width:100%; height:min(440px,60vh); overflow:hidden; border:1px solid rgba(201,162,74,.3); border-radius:8px; background:#c9b88f; cursor:grab; position:relative; }
+.tmap-viewport.grabbing{ cursor:grabbing; }
+.tmap-world{ transform-origin:0 0; }
+.tmap-world svg{ display:block; }
+.tmap-world .isle{ cursor:pointer; }
+.tmap-world .isle:hover path{ filter:brightness(1.12); }
+.tmap-world .isle.xmark:hover path{ filter:none; }
+.tmap-bar{ display:flex; align-items:center; gap:8px; margin-top:8px; }
+.tmap-bar .btn-ghost{ padding:6px 14px; }
+.tmap-tip{ color:var(--parch-dim); font-style:italic; font-size:14px; }
+
+/* pirate code articles */
+.articles{ margin-top:14px; }
+.article{ display:flex; gap:14px; padding:12px 0; border-bottom:1px solid rgba(201,162,74,.15); }
+.art-n{ font-family:var(--pirate); color:var(--gold-bright); font-size:24px; min-width:46px; text-align:center; line-height:1; }
+.art-t{ color:var(--parchment); }
+
 @media (max-width:640px){
   body{ font-size:16px; }
   #brand{ font-size:23px; top:12px; left:14px; }
+  #map-toggle{ right:64px; top:14px; }
   .content-room{ padding:26px 16px 40px; }
   .loc-flavor{ display:none; }
   .exit-label{ max-width:120px; font-size:11px; }
+  .flagmaker{ gap:14px; }
 }

@@ -134,6 +134,85 @@ window.BRN.content = {
     { word:"Athanor", def:"An alchemical furnace for steady, low, long heat — slow, careful transformation." }
   ],
 
+  /* ---------- FAMOUS PIRATES ---------- */
+  piratesIntro: "The Golden Age threw up a handful of names that never sank. Some are mostly myth, some did far more than the legends remember. Here are a few worth knowing — and the single most successful pirate in all history is one most people have never heard of.",
+  pirates: [
+    { name:"Blackbeard (Edward Teach)", years:"active 1716–1718", tag:"Terror as a weapon",
+      blurb:"The most notorious pirate of the English-speaking world, though his career lasted barely two years. He blockaded the port of Charleston with his 40-gun <em>Queen Anne's Revenge</em> and went into battle with lit slow-match smouldering under his hat to wreathe himself in smoke. Killed in a boarding fight in November 1718." },
+    { name:"Bartholomew Roberts (Black Bart)", years:"d. 1722", tag:"The most successful of the Atlantic pirates",
+      blurb:"A Welsh captain who took over 400 ships in three years — more than any other pirate of the age. Famous for his strict written articles, his fine clothes, and naming his own flag the 'Jolly Roger.' His death in battle against HMS Swallow in 1722 is often marked as the beginning of the end of the Golden Age." },
+    { name:"Zheng Yi Sao (Ching Shih)", years:"active c.1807–1810", tag:"The most successful pirate who ever lived",
+      blurb:"A Chinese commander whose Red Flag Fleet grew to as many as 1,800 ships and tens of thousands of pirates — dwarfing every Caribbean captain (Blackbeard commanded four ships). She ran it by a strict code, then did the near-impossible: negotiated a pardon, kept her plunder, and retired peacefully, dying wealthy at 69." },
+    { name:"Anne Bonny & Mary Read", years:"captured 1720", tag:"Fought when the men wouldn't",
+      blurb:"Two women who sailed with 'Calico Jack' Rackham. When their ship was taken in 1720, accounts say the pair fought on deck while the male crew hid drunk below. Both were convicted of piracy in Jamaica; both escaped immediate hanging by 'pleading their bellies' (pregnancy)." },
+    { name:"'Calico Jack' Rackham", years:"d. 1720", tag:"Famous flag, modest career",
+      blurb:"A minor captain remembered far beyond his deeds, mostly for sailing with Bonny and Read. The skull-above-crossed-swords flag everyone calls 'his' is actually a 20th-century invention — a good lesson in how much pirate 'history' is really pop culture." },
+    { name:"Henry Every", years:"active 1690s", tag:"The one who got away",
+      blurb:"Pulled off one of the richest hauls in history raiding a Mughal treasure ship in the Indian Ocean, sparking an international manhunt — then vanished completely. He was never caught, and his fate is unknown to this day." },
+    { name:"Captain William Kidd", years:"hanged 1701", tag:"Privateer turned scapegoat",
+      blurb:"Began as a privateer hunting pirates under royal commission, drifted into piracy himself, and was hanged in London — the rope broke on the first attempt. Rumours of his buried treasure helped invent the whole 'pirate gold map' legend." }
+  ],
+
+  /* ---------- THE PIRATE CODE ---------- */
+  codeIntro: "Pirate ships were, oddly, more democratic than the navies they fled. Crews signed <strong>Articles of Agreement</strong>: the captain was elected and could be deposed, plunder was shared by a fixed scale, and a quartermaster checked the captain's power. These articles of <strong>Bartholomew Roberts</strong>' crew survive in Captain Charles Johnson's <em>A General History of the Pyrates</em> (1724) — lightly modernised here.",
+  code: [
+    { n:"I", text:"Every man has a vote in affairs of moment, and an equal share of fresh provisions and strong liquor seized — to use at pleasure, unless scarcity forces a rationing for the good of all." },
+    { n:"II", text:"Every man called fairly in turn over the plunder; but anyone defrauding the company of even a dollar's worth is marooned." },
+    { n:"III", text:"No person to game at cards or dice for money." },
+    { n:"IV", text:"Lights and candles out by eight at night; any still wanting drink after that must do it on the open deck." },
+    { n:"V", text:"Keep your piece, pistols, and cutlass clean and fit for service." },
+    { n:"VI", text:"No boy or woman allowed aboard, on pain of death — meant to keep the peace among the crew." },
+    { n:"VII", text:"He that deserts the ship or his quarters in battle is punished with death or marooning." },
+    { n:"VIII", text:"No striking another aboard ship; quarrels are settled ashore, by sword or pistol, at the quartermaster's word." },
+    { n:"IX", text:"No one may break up the company until each has made £1,000. A man crippled in service gets 800 dollars from the common stock; lesser hurts, proportionally." },
+    { n:"X", text:"Shares of a prize: Captain and Quartermaster two; Master, Boatswain, Gunner one and a half; other officers one and a quarter; all else, one share." },
+    { n:"XI", text:"The musicians have rest on the Sabbath, but the other six days and nights only by special favour." }
+  ],
+
+  /* ---------- FLAGS & SIGNALS ---------- */
+  flagsIntro: "A pirate flag was psychological warfare. Run up the colours, and a merchant captain had a choice. A <strong>black</strong> flag meant 'surrender and you'll be given <em>quarter</em> (mercy).' A <strong>red</strong> flag meant 'no quarter — no mercy, no survivors.' The word 'Jolly Roger' is first recorded around 1724; even then it was a generic term for any black pirate flag, not one design. Build your own below.",
+  flags: [
+    { name:"The Black Flag", desc:"Surrender now and quarter will be given. The skull-and-crossbones is only the most famous of many designs." },
+    { name:"The Red ('Bloody') Flag", desc:"No quarter. The most feared signal at sea — fight us and none of you will be spared." },
+    { name:"Bartholomew Roberts'", desc:"Eyewitnesses described 'a death's head and an arm with a cutlass.' Roberts is also the first known to call his flag the Jolly Roger." },
+    { name:"The hourglass", desc:"A common emblem: your time is running out. Sometimes winged — time is flying away." },
+    { name:"The bleeding heart & the skeleton", desc:"Spears, bleeding hearts, and dancing skeletons all warned of the dreadful price of resistance." },
+    { name:"'Calico Jack' Rackham's", desc:"The skull above crossed swords everyone knows — and a 20th-century invention. A reminder that much 'pirate history' is really Hollywood." }
+  ],
+
+  /* ---------- KNOTS & RIGGING ---------- */
+  knotsIntro: "A ship runs on rope, and rope runs on knots. The right knot holds fast under tons of strain yet unties with a tug when you need it; the wrong one jams or slips and costs lives. Here are the essentials — pick one to watch it tie.",
+  knots: [
+    { key:"bowline",   name:"Bowline",        use:"Makes a fixed loop that won't slip or jam — the 'king of knots.' Rescue, mooring, anything needing a reliable loop." },
+    { key:"clove",     name:"Clove Hitch",    use:"Fastens a line to a post or spar quickly. Easy to tie and adjust; best when the load is steady." },
+    { key:"reef",      name:"Reef (Square) Knot", use:"Joins two lines of equal size or reefs (shortens) a sail. Lies flat — but never trust it under heavy strain." },
+    { key:"sheet",     name:"Sheet Bend",     use:"Ties two ropes together, even of different thickness, where a reef knot would fail." },
+    { key:"figure8",   name:"Figure-Eight",   use:"A stopper knot that keeps a line from running out through a block. Easy to untie after loading." }
+  ],
+
+  /* ---------- NAVIGATION & THE STARS ---------- */
+  navIntro: "Out of sight of land, with no GPS and no reliable clock, how did they know where they were? Mostly they didn't — not exactly. They measured <strong>latitude</strong> (how far north or south) fairly well from the sun and stars, guessed the rest by <strong>dead reckoning</strong>, and prayed. Longitude was a nightmare unsolved until accurate clocks arrived in the 18th century.",
+  navigation: [
+    { name:"The magnetic compass", desc:"Points roughly north, giving heading. The foundation of every other method — but it lies a little (magnetic north isn't true north)." },
+    { name:"Cross-staff & backstaff", desc:"Measure the angle of the sun or Polaris above the horizon to find latitude. The backstaff (John Davis, c.1594) let you keep the blinding sun at your back." },
+    { name:"The log line — why we say 'knots'", desc:"A board on a knotted rope, thrown astern. Count how many knots run out in a timed sandglass and you have your speed. That's literally why ship speed is measured in 'knots.'" },
+    { name:"The lead line", desc:"A tallow-tipped lead weight on a knotted rope, dropped to read depth — and to bring up sand or shell from the bottom, telling a wary captain what lay below." },
+    { name:"Dead reckoning", desc:"From a known point, plot course (compass) × speed (log) × time (glass), correcting for wind and current. Errors pile up fast — many ships were lost to a bad reckoning." },
+    { name:"The longitude problem", desc:"To know east–west position you must compare local time with the time at a home port. Without an accurate sea-clock that was impossible, so longitude stayed a deadly guess for centuries." }
+  ],
+
+  /* ---------- LIFE ABOARD ---------- */
+  lifeIntro: "Strip away the romance and a pirate's life was cramped, wet, dangerous, and often boring — punctuated by terror. But it offered something a navy or merchant berth rarely did: a vote, a fair share, and a way out of a brutal hierarchy ashore.",
+  life: [
+    { name:"Hardtack", desc:"A rock-hard biscuit of flour, water and salt, baked until nearly indestructible. On long voyages it bred weevils; men ate in the dark so as not to see, or dunked it in grog to soften it and float the bugs out." },
+    { name:"Salt beef & pork", desc:"Meat packed in barrels of salt to survive months at sea — tough, intensely salty, soaked and boiled before it could be chewed." },
+    { name:"Grog", desc:"Rum cut with water (often with lime or lemon). Watering it down kept the crew working rather than blind drunk, and the citrus warded off scurvy — though no one yet knew why." },
+    { name:"Scurvy", desc:"A killer of long voyages, caused by lack of vitamin C: bleeding gums, old wounds reopening, exhaustion, death. Fresh fruit cured it; ships that carried citrus suffered far less." },
+    { name:"Watches", desc:"The day split into watches marked by the ship's bell, so the vessel was always crewed. Work, sleep, work — broken only by weather, drills, and the rare fight." },
+    { name:"The quartermaster", desc:"Elected to balance the captain: he ran daily discipline, divided plunder, and spoke for the crew. On many ships he, not the captain, settled disputes." },
+    { name:"Pay by the share", desc:"No wages — you took a cut of what was seized, set by the articles, with extra for losing a limb. No prize, no pay: a powerful reason to keep hunting." }
+  ],
+
   /* ---------- CAPTAIN'S QUARTERS: the book itself ---------- */
   book: {
     blurb: "<em>Barnacles</em> is the book. This cabin is its private harbor — drop the maps, log the crew, pin the lines, keep the music. Nothing here is written by the AI; it only holds and arranges what is yours.",

@@ -296,11 +296,19 @@
         decor + shelves +
         '<circle cx="800" cy="470" r="220" fill="url(#lant)" opacity="0.35"/>'+ planks(800,100)+
         // the five learning books (clickable) sitting prominently on the shelves
-        bookSpineObj(390, 380, 'data-open="ships"',    "How Ships Work",   '#6b4a28')+
-        bookSpineObj(585, 380, 'data-open="shanties"', "Shanties",         '#3a5a4a')+
-        bookSpineObj(780, 380, 'data-open="speak"',    "Pirate Speak",     '#7a3a2a')+
-        bookSpineObj(975, 380, 'data-open="history"',  "History of Piracy",'#3a4a6a')+
-        bookSpineObj(1170,380, 'data-open="forge"',    "The Forge",        '#a8552e')
+        // middle shelf
+        bookSpineObj(360, 380, 'data-open="ships"',    "How Ships Work",   '#6b4a28')+
+        bookSpineObj(528, 380, 'data-open="shanties"', "Shanties",         '#3a5a4a')+
+        bookSpineObj(696, 380, 'data-open="speak"',    "Pirate Speak",     '#7a3a2a')+
+        bookSpineObj(864, 380, 'data-open="history"',  "History of Piracy",'#3a4a6a')+
+        bookSpineObj(1032,380, 'data-open="forge"',    "The Forge",        '#a8552e')+
+        bookSpineObj(1200,380, 'data-open="pirates"',  "Famous Pirates",   '#52324a')+
+        // lower shelf
+        bookSpineObj(440, 600, 'data-open="code"',       "The Pirate Code",      '#5a4a1a')+
+        bookSpineObj(620, 600, 'data-open="flags"',      "Flags & Signals",      '#7a1f17')+
+        bookSpineObj(800, 600, 'data-open="knots"',      "Knots & Rigging",      '#2a4a52')+
+        bookSpineObj(980, 600, 'data-open="navigation"', "Navigation & the Stars",'#244a44')+
+        bookSpineObj(1160,600, 'data-open="life"',       "Life Aboard",          '#6b4a28')
       );
     }},
 

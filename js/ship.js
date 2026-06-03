@@ -14,7 +14,8 @@
     helm: {
       title:"The Helm", kicker:"Quarterdeck", scene:"helm", zone:"deck", weather:"storm",
       flavor:"You stand at the wheel on the quarterdeck. Step forward to the main deck, or drop down to the great cabin.",
-      info:"The quarterdeck is the ship's brain — raised aft so the officers can see the full length of the vessel and the set of every sail. The great wheel is a latecomer; for most of the age of sail, helmsmen wrestled a <em>whipstaff</em> or hauled directly on the tiller below."
+      info:"The quarterdeck is the ship's brain — raised aft so the officers can see the full length of the vessel and the set of every sail. The great wheel is a latecomer; for most of the age of sail, helmsmen wrestled a <em>whipstaff</em> or hauled directly on the tiller below.",
+      content:["steering"]
     },
     maindeck: {
       title:"The Main Deck", kicker:"The Waist & Capstan", scene:"maindeck", zone:"deck", weather:"storm",
@@ -40,7 +41,8 @@
     hold: {
       title:"The Hold", kicker:"Cargo, Ballast & Bilge", scene:"hold", zone:"below", weather:"deep",
       flavor:"The belly of the ship — barrels, crates, damp dark, and the rats' own parliament. The ladder climbs back to the gun deck.",
-      info:"Down here ride the cargo, the water casks, the powder, and the stone or gravel <em>ballast</em> that keeps a ship upright. At the very bottom sits the <em>bilge</em>, where stinking water collects to be pumped out — the foulest duty aboard."
+      info:"Down here ride the cargo, the water casks, the powder, and the stone or gravel <em>ballast</em> that keeps a ship upright. At the very bottom sits the <em>bilge</em>, where stinking water collects to be pumped out — the foulest duty aboard.",
+      content:["careen"]
     },
     cabin: {
       title:"The Great Cabin", kicker:"The Captain's Library — Barnacles", views:{ fore:"cabin_fore", aft:"cabin_aft" }, zone:"cabin", weather:"cabin",
@@ -105,6 +107,7 @@
       wrap.innerHTML=room.render(); content.appendChild(wrap); if(room.init) room.init(wrap);
     }); }
     document.title = 'BARNACLES — '+loc.title;
+    if(window.BRN.Map) window.BRN.Map.visit(key);
     window.scrollTo(0,0);
   };
 

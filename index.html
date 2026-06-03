@@ -23,6 +23,9 @@
 
 <!-- Floating, background-less header: wordmark + sound only -->
 <a id="brand" href="#/helm" title="Back to the helm">BARNACLES</a>
+<button id="map-toggle" title="Ship's map" aria-label="Ship's map">
+  <svg viewBox="0 0 40 40" width="26" height="26" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="3"><circle cx="20" cy="20" r="9"/><circle cx="20" cy="20" r="16"/><line x1="20" y1="1" x2="20" y2="39"/><line x1="1" y1="20" x2="39" y2="20"/><line x1="6" y1="6" x2="34" y2="34"/><line x1="34" y1="6" x2="6" y2="34"/></g></svg>
+</button>
 <button id="sound-toggle" title="Toggle sound" aria-label="Toggle sound">&#9834;</button>
 
 <!-- Interactive layer: exits over the scene + the room's content below -->
@@ -37,6 +40,17 @@
   <div class="tr-door tr-door-r"></div>
   <div class="tr-wash"></div>
   <div class="tr-label"></div>
+</div>
+
+<!-- Ship's map — fast travel between rooms -->
+<div id="shipmap" aria-hidden="true">
+  <div class="shipmap-backdrop" data-mapclose="1"></div>
+  <div class="shipmap-panel">
+    <button class="shipmap-close" data-mapclose="1" title="Close">&#10005;</button>
+    <div class="shipmap-title">The Ship &mdash; chart a course</div>
+    <div id="shipmap-svg"></div>
+    <div class="shipmap-hint">Click a part of the ship to go there. Visited rooms are marked.</div>
+  </div>
 </div>
 
 <!-- Book reader pop-up (opens when you take a book off the shelf / desk) -->
@@ -64,8 +78,10 @@
 <script src="js/audio.js"></script>
 <script src="js/weather.js"></script>
 <script src="js/scenes.js"></script>
+<script src="js/games.js"></script>
 <script src="js/rooms.js"></script>
 <script src="js/ship.js"></script>
+<script src="js/map.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>
