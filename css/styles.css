@@ -143,13 +143,13 @@ body:not(.aboard) #brand, body:not(.aboard) #sound-toggle{ display:none; }
 #scene .nav .hit{ fill:transparent; }
 #scene .nav .hl{ opacity:0; transition:opacity .18s ease; }
 #scene .nav:hover .hl{ opacity:.28; }
-#scene .nav .beacon{ opacity:.22; animation:beacon 3.4s ease-in-out infinite; }
-#scene .nav:hover .beacon{ opacity:.95; }
+#scene .nav .beacon{ stroke-width:2; opacity:.12; animation:beacon 3.6s ease-in-out infinite; }
+#scene .nav:hover .beacon{ opacity:.85; stroke-width:3; }
 #scene .nav .navlabel{ opacity:0; transition:opacity .15s ease; }
 #scene .nav:hover .navlabel{ opacity:1; }
-#scene .nav .lblbg{ fill:rgba(7,10,14,.82); stroke:rgba(201,162,74,.55); stroke-width:1.5; }
+#scene .nav .lblbg{ fill:rgba(7,10,14,.9); stroke:rgba(201,162,74,.55); stroke-width:1.5; }
 #scene .nav .lbltx{ fill:#efe7d4; font-family:var(--display); font-size:25px; text-anchor:middle; dominant-baseline:middle; paint-order:stroke; }
-@keyframes beacon{ 0%,100%{ opacity:.16; } 50%{ opacity:.5; } }
+@keyframes beacon{ 0%,100%{ opacity:.08; } 50%{ opacity:.3; } }
 
 /* photo rooms: clickable spots stay invisible (clean photo), reveal a soft
    outline + label only on hover. They live in the same SVG space as the
@@ -202,10 +202,15 @@ body:not(.aboard) #brand, body:not(.aboard) #sound-toggle{ display:none; }
 
 #scene-ui{ position:relative; min-height:100vh; pointer-events:none; }
 #scene-ui.turning{ opacity:0; transition:opacity .22s ease; }
+/* legibility scrims so the title and flavor text are always readable over any scene */
+#scene-ui::before{ content:""; position:absolute; top:0; left:0; right:0; height:250px; pointer-events:none; z-index:0;
+  background:linear-gradient(180deg, rgba(5,8,11,.78), rgba(5,8,11,0)); }
+#scene-ui::after{ content:""; position:absolute; bottom:0; left:0; right:0; height:280px; pointer-events:none; z-index:0;
+  background:linear-gradient(0deg, rgba(5,8,11,.85), rgba(5,8,11,0)); }
 
-.loc-banner{ position:absolute; top:74px; left:0; right:0; text-align:center; pointer-events:none; }
+.loc-banner{ position:absolute; top:72px; left:0; right:0; text-align:center; pointer-events:none; z-index:2; padding:0 16px; }
 .loc-kicker{ font-family:var(--display); letter-spacing:.34em; text-transform:uppercase; color:var(--gold-bright); font-size:13px; text-shadow:0 2px 6px #000; }
-.loc-title{ font-family:var(--pirate); font-size:clamp(36px,7vw,82px); color:var(--bone); letter-spacing:.05em; text-shadow:0 3px 0 #000, 0 0 40px rgba(0,0,0,.8); }
+.loc-title{ font-family:var(--pirate); font-size:clamp(34px,6vw,68px); color:var(--bone); letter-spacing:.05em; text-shadow:0 3px 0 #000, 0 0 40px rgba(0,0,0,.85); margin:0; }
 
 /* exit markers: an illustrated door/ladder/hatch that sits on the spot */
 .exits{ position:absolute; inset:0; }
@@ -233,7 +238,7 @@ body:not(.aboard) #brand, body:not(.aboard) #sound-toggle{ display:none; }
 @keyframes bob{ 0%,100%{ margin-top:0;} 50%{ margin-top:-7px;} }
 
 /* bottom: turn-around, flavor, passages, read hint */
-.loc-foot{ position:absolute; left:0; right:0; bottom:26px; text-align:center; padding:0 18px; }
+.loc-foot{ position:absolute; left:0; right:0; bottom:24px; text-align:center; padding:0 18px; z-index:2; }
 .loc-flavor{ max-width:60ch; margin:10px auto; color:var(--parch-dim); font-style:italic; font-size:16px; text-shadow:0 1px 4px #000; }
 .turn-around{
   font-family:var(--display); letter-spacing:.16em; text-transform:uppercase; font-size:12px;

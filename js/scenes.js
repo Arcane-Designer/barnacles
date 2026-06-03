@@ -186,7 +186,7 @@
         '<g transform="translate(820,610)"><ellipse cx="0" cy="150" rx="100" ry="28" fill="#2a1a0c"/><rect x="-60" y="20" width="120" height="150" rx="12" fill="url(#deckG)"/><ellipse cx="0" cy="20" rx="60" ry="18" fill="#6b4a28"/></g>'+
         barrel(150,690)+
         // NAV objects spread across the deck
-        ratlineObj(720, 150, 470, 'data-to="crowsnest" data-type="climbup"', "Climb the mainmast to the crow's nest")+
+        ratlineObj(720, 245, 520, 'data-to="crowsnest" data-type="climbup"', "Climb the mainmast to the crow's nest")+
         // forecastle steps ahead (right, raised)
         nav('data-to="forecastle" data-type="walk"', "Forward to the forecastle",
           beacon(1000,300,260,150,10)+'<rect x="1000" y="320" width="260" height="120" fill="#241608"/><rect x="1000" y="320" width="260" height="22" fill="#3a2614"/><rect x="1018" y="358" width="224" height="20" fill="#3a2614"/><rect x="1036" y="394" width="188" height="20" fill="#3a2614"/>'+hl(1000,318,260,124,6)+hit(990,300,280,152), 1130, 302)+
@@ -236,7 +236,7 @@
         ports+ planks(560,340)+ cannons+
         '<line x1="800" y1="120" x2="800" y2="190" stroke="#241a0e" stroke-width="4"/><circle cx="800" cy="230" r="120" fill="url(#lant)"/><rect x="784" y="200" width="32" height="48" rx="6" fill="#2a1a0c" stroke="#c9a24a"/>'+
         // NAV: up to main deck (ladder up through ceiling, center)
-        ladderUpObj(800, 150, 460, 'data-to="maindeck" data-type="up"', "Up the hatch to the main deck")+
+        ladderUpObj(800, 232, 470, 'data-to="maindeck" data-type="up"', "Up the hatch to the main deck")+
         // NAV: aft door to cabin (right, within safe zone)
         doorObj(1100, 460, 150, 250, 'data-to="cabin" data-type="door"', "Aft to the captain's cabin")+
         // NAV: forward door to galley (left, within safe zone)
