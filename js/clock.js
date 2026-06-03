@@ -50,8 +50,8 @@
     r.setProperty('--moon-op', (1 - phase).toFixed(3));
     r.setProperty('--sun-op', phase.toFixed(3));
     r.setProperty('--dawn-op', (warm * 0.8).toFixed(3));
-    // ambient overlay: deep blue at night fading away by day
-    r.setProperty('--ambient', 'rgba(4,12,24,' + (0.5 * (1 - phase)).toFixed(3) + ')');
+    // ambient overlay: deep blue at night fading away by day (kept gentle so night scenes stay readable)
+    r.setProperty('--ambient', 'rgba(4,12,24,' + (0.4 * (1 - phase)).toFixed(3) + ')');
     // a daylight wash that lifts indoor scenes a touch
     r.setProperty('--daylight', (phase).toFixed(3));
     schedule();
