@@ -153,12 +153,12 @@
         '<circle cx="170" cy="350" r="60" fill="url(#lant)" opacity="0.7"/><circle cx="1430" cy="350" r="60" fill="url(#lant)" opacity="0.7"/>'+
         // NAV: forward to main deck (steps/opening forward, center)
         nav('data-to="maindeck" data-type="walk"', "Forward to the main deck",
-          beacon(660,330,280,150,10)+
-          '<rect x="660" y="350" width="280" height="120" fill="#241608"/>'+
-          '<rect x="660" y="350" width="280" height="22" fill="#3a2614"/><rect x="678" y="388" width="244" height="20" fill="#3a2614"/><rect x="696" y="424" width="208" height="20" fill="#3a2614"/>'+
-          hl(660,348,280,124,6)+hit(650,330,300,150), 800, 332)+
-        // NAV: down to great cabin (companionway hatch, right)
-        hatchDownObj(1180, 560, 'data-to="cabin" data-type="down"', "Down to the great cabin")
+          beacon(560,330,280,150,10)+
+          '<rect x="560" y="350" width="280" height="120" fill="#241608"/>'+
+          '<rect x="560" y="350" width="280" height="22" fill="#3a2614"/><rect x="578" y="388" width="244" height="20" fill="#3a2614"/><rect x="596" y="424" width="208" height="20" fill="#3a2614"/>'+
+          hl(560,348,280,124,6)+hit(550,330,300,150), 700, 332)+
+        // NAV: down to great cabin (companionway hatch, center-right)
+        hatchDownObj(1060, 560, 'data-to="cabin" data-type="down"', "Down to the great cabin")
       );
     }},
 
@@ -170,17 +170,17 @@
         '<g transform="translate(820,610)"><ellipse cx="0" cy="150" rx="100" ry="28" fill="#2a1a0c"/><rect x="-60" y="20" width="120" height="150" rx="12" fill="url(#deckG)"/><ellipse cx="0" cy="20" rx="60" ry="18" fill="#6b4a28"/></g>'+
         barrel(150,690)+
         // NAV objects spread across the deck
-        ratlineObj(500, 60, 430, 'data-to="crowsnest" data-type="climbup"', "Climb the mainmast to the crow's nest")+
-        // forecastle steps ahead (right-center, raised)
+        ratlineObj(720, 150, 470, 'data-to="crowsnest" data-type="climbup"', "Climb the mainmast to the crow's nest")+
+        // forecastle steps ahead (right, raised)
         nav('data-to="forecastle" data-type="walk"', "Forward to the forecastle",
-          beacon(1140,300,300,150,10)+'<rect x="1140" y="320" width="300" height="120" fill="#241608"/><rect x="1140" y="320" width="300" height="22" fill="#3a2614"/><rect x="1158" y="358" width="264" height="20" fill="#3a2614"/><rect x="1176" y="394" width="228" height="20" fill="#3a2614"/>'+hl(1140,318,300,124,6)+hit(1130,300,320,152), 1290, 302)+
+          beacon(1000,300,260,150,10)+'<rect x="1000" y="320" width="260" height="120" fill="#241608"/><rect x="1000" y="320" width="260" height="22" fill="#3a2614"/><rect x="1018" y="358" width="224" height="20" fill="#3a2614"/><rect x="1036" y="394" width="188" height="20" fill="#3a2614"/>'+hl(1000,318,260,124,6)+hit(990,300,280,152), 1130, 302)+
         // helm steps aft (left, raised quarterdeck)
         nav('data-to="helm" data-type="walk"', "Aft to the helm",
-          beacon(150,300,300,150,10)+'<rect x="150" y="320" width="300" height="120" fill="#241608"/><rect x="150" y="320" width="300" height="22" fill="#3a2614"/><rect x="168" y="358" width="264" height="20" fill="#3a2614"/><rect x="186" y="394" width="228" height="20" fill="#3a2614"/>'+hl(150,318,300,124,6)+hit(140,300,320,152), 300, 302)+
+          beacon(330,300,260,150,10)+'<rect x="330" y="320" width="260" height="120" fill="#241608"/><rect x="330" y="320" width="260" height="22" fill="#3a2614"/><rect x="348" y="358" width="224" height="20" fill="#3a2614"/><rect x="366" y="394" width="188" height="20" fill="#3a2614"/>'+hl(330,318,260,124,6)+hit(320,300,280,152), 460, 302)+
         // hatch down to gun deck (center floor)
-        hatchDownObj(800, 760, 'data-to="gundeck" data-type="down"', "Down the hatch to the gun deck")+
-        // rail break to dive (left edge, lower)
-        railDiveObj(250, 560, 'data-to="sea" data-type="overboard"', "To the rail — dive overboard")
+        hatchDownObj(720, 740, 'data-to="gundeck" data-type="down"', "Down the hatch to the gun deck")+
+        // rail break to dive (lower-left)
+        railDiveObj(400, 600, 'data-to="sea" data-type="overboard"', "To the rail — dive overboard")
       );
     }},
 
@@ -194,7 +194,7 @@
         nav('data-to="maindeck" data-type="walk"', "Aft to the main deck",
           beacon(650,330,300,150,10)+'<rect x="650" y="350" width="300" height="120" fill="#241608"/><rect x="650" y="350" width="300" height="22" fill="#3a2614"/><rect x="668" y="388" width="264" height="20" fill="#3a2614"/><rect x="686" y="424" width="228" height="20" fill="#3a2614"/>'+hl(650,348,300,124,6)+hit(640,330,320,152), 800, 332)+
         // NAV: down to galley (hatch right)
-        hatchDownObj(1240, 600, 'data-to="galley" data-type="down"', "Down to the galley")
+        hatchDownObj(1120, 600, 'data-to="galley" data-type="down"', "Down to the galley")
       );
     }},
 
@@ -220,13 +220,13 @@
         ports+ planks(560,340)+ cannons+
         '<line x1="800" y1="120" x2="800" y2="190" stroke="#241a0e" stroke-width="4"/><circle cx="800" cy="230" r="120" fill="url(#lant)"/><rect x="784" y="200" width="32" height="48" rx="6" fill="#2a1a0c" stroke="#c9a24a"/>'+
         // NAV: up to main deck (ladder up through ceiling, center)
-        ladderUpObj(800, 130, 300, 'data-to="maindeck" data-type="up"', "Up the hatch to the main deck")+
-        // NAV: aft door to cabin (right)
-        doorObj(1360, 470, 150, 250, 'data-to="cabin" data-type="door"', "Aft to the captain's cabin")+
-        // NAV: forward door to galley (left)
-        doorObj(90, 470, 150, 250, 'data-to="galley" data-type="door"', "Forward to the galley")+
+        ladderUpObj(800, 150, 460, 'data-to="maindeck" data-type="up"', "Up the hatch to the main deck")+
+        // NAV: aft door to cabin (right, within safe zone)
+        doorObj(1100, 460, 150, 250, 'data-to="cabin" data-type="door"', "Aft to the captain's cabin")+
+        // NAV: forward door to galley (left, within safe zone)
+        doorObj(350, 460, 150, 250, 'data-to="galley" data-type="door"', "Forward to the galley")+
         // NAV: down hatch to hold (center floor)
-        hatchDownObj(800, 800, 'data-to="hold" data-type="down"', "Down into the hold")
+        hatchDownObj(720, 740, 'data-to="hold" data-type="down"', "Down into the hold")
       );
     }},
 
@@ -251,11 +251,11 @@
         '<g transform="translate(800,650)"><rect x="-230" y="0" width="460" height="40" rx="8" fill="#5a3d22"/><rect x="-210" y="40" width="40" height="120" fill="#3a2614"/><rect x="170" y="40" width="40" height="120" fill="#3a2614"/><rect x="150" y="-44" width="16" height="44" fill="#e9dcbd"/><circle cx="158" cy="-50" r="11" fill="url(#fire)"/></g>'+
         '<circle cx="800" cy="560" r="170" fill="url(#lant)" opacity="0.5"/>'+
         // NAV: the open book on the desk
-        openBookObj(720, 612, 'data-open="quarters"', "The open book — Barnacles")+
-        // NAV: forward door to gun deck (left)
-        doorObj(120, 470, 150, 250, 'data-to="gundeck" data-type="door"', "Forward to the gun deck")+
-        // NAV: companionway up to helm (right)
-        ladderUpObj(1420, 360, 720, 'data-to="helm" data-type="up"', "Up the companionway to the helm")
+        openBookObj(780, 612, 'data-open="quarters"', "The open book — Barnacles")+
+        // NAV: forward door to gun deck (left within safe zone)
+        doorObj(350, 460, 150, 250, 'data-to="gundeck" data-type="door"', "Forward to the gun deck")+
+        // NAV: companionway up to helm (right within safe zone)
+        ladderUpObj(1180, 400, 720, 'data-to="helm" data-type="up"', "Up the companionway to the helm")
       );
     }},
 
@@ -272,11 +272,11 @@
         decor + shelves +
         '<circle cx="800" cy="470" r="220" fill="url(#lant)" opacity="0.35"/>'+ planks(800,100)+
         // the five learning books (clickable) sitting prominently on the shelves
-        bookSpineObj(330, 150, 'data-open="ships"',    "How Ships Work",   '#6b4a28')+
-        bookSpineObj(560, 150, 'data-open="shanties"', "Shanties",         '#3a5a4a')+
-        bookSpineObj(790, 150, 'data-open="speak"',    "Pirate Speak",     '#7a3a2a')+
-        bookSpineObj(1020,150, 'data-open="history"',  "History of Piracy",'#3a4a6a')+
-        bookSpineObj(1250,150, 'data-open="forge"',    "The Forge",        '#a8552e')
+        bookSpineObj(390, 160, 'data-open="ships"',    "How Ships Work",   '#6b4a28')+
+        bookSpineObj(585, 160, 'data-open="shanties"', "Shanties",         '#3a5a4a')+
+        bookSpineObj(780, 160, 'data-open="speak"',    "Pirate Speak",     '#7a3a2a')+
+        bookSpineObj(975, 160, 'data-open="history"',  "History of Piracy",'#3a4a6a')+
+        bookSpineObj(1170,160, 'data-open="forge"',    "The Forge",        '#a8552e')
       );
     }},
 
@@ -288,10 +288,10 @@
           '<rect x="-150" y="60" width="300" height="180" rx="10" fill="#0a0503"/><circle cx="0" cy="180" r="220" fill="url(#fire)"/><circle cx="0" cy="190" r="110" fill="url(#fire)"/>'+
           '<g transform="translate(360,170)"><rect x="-60" y="0" width="120" height="30" rx="6" fill="#23232a"/><rect x="-30" y="30" width="60" height="60" fill="#1a1a1f"/></g></g>'+
         planks(700,200)+
-        // NAV: up to forecastle (ladder, left)
-        ladderUpObj(220, 120, 700, 'data-to="forecastle" data-type="up"', "Up to the forecastle")+
-        // NAV: aft door to gun deck (right)
-        doorObj(1340, 470, 150, 250, 'data-to="gundeck" data-type="door"', "Aft to the gun deck")
+        // NAV: up to forecastle (ladder, left within safe zone)
+        ladderUpObj(380, 150, 700, 'data-to="forecastle" data-type="up"', "Up to the forecastle")+
+        // NAV: aft door to gun deck (right within safe zone)
+        doorObj(1080, 460, 150, 250, 'data-to="gundeck" data-type="door"', "Aft to the gun deck")
       );
     }},
 
