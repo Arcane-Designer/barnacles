@@ -78,8 +78,8 @@
   }
 
   function infoPanel(loc){
-    return '<div class="content-room info-card"><div class="room-kicker">'+loc.kicker+'</div>'+
-      '<h2 class="room-title">'+loc.title+'</h2><p class="room-lede">'+(loc.info||'')+'</p></div>';
+    return '<div class="content-room info-card"><h3 class="section" style="margin-top:0">About this place</h3>'+
+      '<p class="room-lede">'+(loc.info||'')+'</p></div>';
   }
 
   Ship.show = function(key){
